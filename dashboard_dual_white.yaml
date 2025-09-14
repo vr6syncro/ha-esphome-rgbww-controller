@@ -1,0 +1,131 @@
+# HomeAssistant Dashboard für Dual White Controller (2 Kanäle CCT)
+# Anpassung: Ersetze "dual-white-controller" mit deinem ESPHome device name
+
+title: Dual White Controller
+views:
+  - title: CCT Strip
+    path: dual_white
+    cards:
+      # Hauptlicht CCT mit Color Temperature (KEINE RGB-Farben!)
+      - type: light
+        entity: light.dual_white_controller_cct_strip
+        name: CCT Strip
+
+      # Color Temperature Presets (2700K - 6000K)
+      - type: grid
+        title: Weiß-Töne
+        columns: 3
+        square: false
+        cards:
+          - type: button
+            entity: button.dual_white_controller_preset_warm_2700k
+            name: 2700K Warm
+            icon: mdi:lightbulb-on
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.dual_white_controller_preset_warm_2700k
+          - type: button
+            entity: button.dual_white_controller_preset_warm_3000k
+            name: 3000K Warm+
+            icon: mdi:lightbulb-on-outline
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.dual_white_controller_preset_warm_3000k
+          - type: button
+            entity: button.dual_white_controller_preset_neutral_4000k
+            name: 4000K Neutral
+            icon: mdi:lightbulb-variant
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.dual_white_controller_preset_neutral_4000k
+          - type: button
+            entity: button.dual_white_controller_preset_cool_5000k
+            name: 5000K Cool-
+            icon: mdi:snowflake-variant
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.dual_white_controller_preset_cool_5000k
+          - type: button
+            entity: button.dual_white_controller_preset_cool_6000k
+            name: 6000K Cool
+            icon: mdi:snowflake
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.dual_white_controller_preset_cool_6000k
+
+      # Anwendungs-Presets
+      - type: grid
+        title: Anwendungen
+        columns: 3
+        square: false
+        cards:
+          - type: button
+            entity: button.dual_white_controller_preset_morning
+            name: Morning
+            icon: mdi:weather-sunset-up
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.dual_white_controller_preset_morning
+          - type: button
+            entity: button.dual_white_controller_preset_office
+            name: Office
+            icon: mdi:briefcase
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.dual_white_controller_preset_office
+          - type: button
+            entity: button.dual_white_controller_preset_reading
+            name: Reading
+            icon: mdi:book-open-page-variant
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.dual_white_controller_preset_reading
+          - type: button
+            entity: button.dual_white_controller_preset_relax
+            name: Relax
+            icon: mdi:sofa
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.dual_white_controller_preset_relax
+          - type: button
+            entity: button.dual_white_controller_preset_night_light
+            name: Night Light
+            icon: mdi:weather-night
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.dual_white_controller_preset_night_light
+
+      # System Info
+      - type: entities
+        title: System
+        entities:
+          - entity: binary_sensor.dual_white_controller_online
+            name: Online
+          - entity: sensor.dual_white_controller_wifi_signal
+            name: WiFi Signal
+          - entity: sensor.dual_white_controller_uptime
+            name: Uptime
+          - entity: sensor.dual_white_controller_ip_address
+            name: IP Address
+          - entity: button.dual_white_controller_restart_controller
+            name: Neustart

@@ -1,0 +1,243 @@
+# Home Assistant Lovelace Dashboard für RGBWW Controller (Device: rgbwwtest / _a77220)
+
+title: RGBWW Controller
+views:
+  - title: RGBWW
+    path: rgbww
+    cards:
+      # Hauptlicht mit Farb-/CT-/Helligkeitssteuerung (klassische Light-Card mit Farbkreis)
+      - type: light
+        entity: light.rgbww_controller_rgbww_strip
+        name: RGBWW Strip
+
+      # White Mode Auswahl + Expert-Mode Schalter
+      - type: entities
+        title: Modus
+        entities:
+          - entity: select.rgbwwtest_a77220_white_mode
+            name: White Mode
+          - entity: switch.rgbwwtest_a77220_expert_mode
+            name: Expert Mode (RAW)
+
+      # Presets als Buttons (lösen die Button-Entities aus)
+      - type: grid
+        title: Presets
+        columns: 3
+        square: false
+        cards:
+          - type: button
+            entity: button.rgbwwtest_a77220_preset_warm_white_100
+            name: Warm 100%
+            icon: mdi:lightbulb-on
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbwwtest_a77220_preset_warm_white_100
+            hold_action:
+              action: more-info
+          - type: button
+            entity: button.rgbwwtest_a77220_preset_warm_white_50
+            name: Warm 50%
+            icon: mdi:lightbulb-on-outline
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbwwtest_a77220_preset_warm_white_50
+            hold_action:
+              action: more-info
+          - type: button
+            entity: button.rgbwwtest_a77220_preset_cold_white_100
+            name: Cold 100%
+            icon: mdi:snowflake
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbwwtest_a77220_preset_cold_white_100
+            hold_action:
+              action: more-info
+          - type: button
+            entity: button.rgbwwtest_a77220_preset_relax
+            name: Relax
+            icon: mdi:sofa
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbwwtest_a77220_preset_relax
+            hold_action:
+              action: more-info
+          - type: button
+            entity: button.rgbwwtest_a77220_preset_work
+            name: Work
+            icon: mdi:briefcase
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbwwtest_a77220_preset_work
+            hold_action:
+              action: more-info
+          - type: button
+            entity: button.rgbwwtest_a77220_preset_night_light
+            name: Night
+            icon: mdi:weather-night
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbwwtest_a77220_preset_night_light
+            hold_action:
+              action: more-info
+          - type: button
+            entity: button.rgbwwtest_a77220_preset_red_100
+            name: Red
+            icon: mdi:led-strip-variant
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbwwtest_a77220_preset_red_100
+            hold_action:
+              action: more-info
+          - type: button
+            entity: button.rgbwwtest_a77220_preset_green_100
+            name: Green
+            icon: mdi:led-strip-variant
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbwwtest_a77220_preset_green_100
+            hold_action:
+              action: more-info
+          - type: button
+            entity: button.rgbwwtest_a77220_preset_blue_100
+            name: Blue
+            icon: mdi:led-strip-variant
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbwwtest_a77220_preset_blue_100
+            hold_action:
+              action: more-info
+          - type: button
+            entity: button.rgbwwtest_a77220_preset_candle
+            name: Candle
+            icon: mdi:candle
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbwwtest_a77220_preset_candle
+            hold_action:
+              action: more-info
+
+      # RAW/Expert: Channel-Slider nur anzeigen, wenn Expert Mode an ist
+      - type: conditional
+        conditions:
+          - entity: switch.rgbwwtest_a77220_expert_mode
+            state: 'on'
+        card:
+          type: entities
+          title: RAW Kanäle (Expert)
+          entities:
+            - entity: number.rgbwwtest_a77220_red_channel
+              name: Red
+            - entity: number.rgbwwtest_a77220_green_channel
+              name: Green
+            - entity: number.rgbwwtest_a77220_blue_channel
+              name: Blue
+            - entity: number.rgbwwtest_a77220_warm_white_channel
+              name: Warm White
+            - entity: number.rgbwwtest_a77220_cold_white_channel
+              name: Cold White
+
+      # Diagnose / System
+      - type: entities
+        title: System
+        entities:
+          - entity: binary_sensor.rgbwwtest_a77220_online
+            name: Online
+          - entity: sensor.rgbww_controller_wifi_signal
+            name: WiFi Signal
+          - entity: sensor.rgbww_controller_uptime
+            name: Uptime
+          - entity: sensor.rgbww_controller_ip_address
+            name: IP Address
+          - entity: sensor.rgbwwtest_a77220_ssid
+            name: SSID
+          - entity: sensor.rgbwwtest_a77220_mac
+            name: MAC
+          - entity: sensor.rgbww_controller_esphome_version
+            name: ESPHome Version
+          - entity: button.rgbwwtest_a77220_restart_controller
+            name: Neustart Controller
+
+      # Alle Entitäten (Sample-Liste)
+      - type: entities
+        title: Alle Entitäten (Sample)
+        show_header_toggle: false
+        entities:
+          - entity: light.rgbww_controller_rgbww_strip
+            name: RGBWW Strip
+          - entity: light.rgbww
+            name: RGBWW (zusätzlich)
+          - entity: select.rgbwwtest_a77220_white_mode
+            name: White Mode
+          - entity: switch.rgbwwtest_a77220_expert_mode
+            name: Expert Mode (RAW)
+          - type: divider
+          - entity: number.rgbwwtest_a77220_red_channel
+            name: Red Channel
+          - entity: number.rgbwwtest_a77220_green_channel
+            name: Green Channel
+          - entity: number.rgbwwtest_a77220_blue_channel
+            name: Blue Channel
+          - entity: number.rgbwwtest_a77220_warm_white_channel
+            name: Warm White Channel
+          - entity: number.rgbwwtest_a77220_cold_white_channel
+            name: Cold White Channel
+          - type: divider
+          - entity: button.rgbwwtest_a77220_preset_warm_white_100
+            name: Preset Warm 100%
+          - entity: button.rgbwwtest_a77220_preset_warm_white_50
+            name: Preset Warm 50%
+          - entity: button.rgbwwtest_a77220_preset_cold_white_100
+            name: Preset Cold 100%
+          - entity: button.rgbwwtest_a77220_preset_relax
+            name: Preset Relax
+          - entity: button.rgbwwtest_a77220_preset_work
+            name: Preset Work
+          - entity: button.rgbwwtest_a77220_preset_night_light
+            name: Preset Night
+          - entity: button.rgbwwtest_a77220_preset_red_100
+            name: Preset Red 100%
+          - entity: button.rgbwwtest_a77220_preset_green_100
+            name: Preset Green 100%
+          - entity: button.rgbwwtest_a77220_preset_blue_100
+            name: Preset Blue 100%
+          - entity: button.rgbwwtest_a77220_preset_candle
+            name: Preset Candle
+          - entity: button.rgbwwtest_a77220_restart_controller
+            name: Neustart Controller
+          - type: divider
+          - entity: binary_sensor.rgbwwtest_a77220_online
+            name: Online
+          - entity: sensor.rgbww_controller_wifi_signal
+            name: WiFi Signal
+          - entity: sensor.rgbww_controller_uptime
+            name: Uptime
+          - entity: sensor.rgbww_controller_ip_address
+            name: IP Address
+          - entity: sensor.rgbwwtest_a77220_ssid
+            name: SSID
+          - entity: sensor.rgbwwtest_a77220_mac
+            name: MAC
+          - entity: sensor.rgbww_controller_esphome_version
+            name: ESPHome Version
+          - entity: device_tracker.rgbww_controller_v2_2
+            name: Gerät (Device Tracker)

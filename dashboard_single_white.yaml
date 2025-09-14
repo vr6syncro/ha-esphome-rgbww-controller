@@ -1,0 +1,113 @@
+# HomeAssistant Dashboard für Single White Controller (1 Kanal Dimmer)
+# Anpassung: Ersetze "white-dimmer" mit deinem ESPHome device name
+
+title: White Dimmer
+views:
+  - title: Dimmer
+    path: single_white
+    cards:
+      # Hauptlicht Dimmer (NUR Helligkeit, keine Farben/CT)
+      - type: light
+        entity: light.white_dimmer_white_dimmer
+        name: White Dimmer
+
+      # Helligkeits-Presets
+      - type: grid
+        title: Helligkeit
+        columns: 4
+        square: false
+        cards:
+          - type: button
+            entity: button.white_dimmer_preset_100_percent
+            name: 100%
+            icon: mdi:lightbulb-on
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.white_dimmer_preset_100_percent
+          - type: button
+            entity: button.white_dimmer_preset_75_percent
+            name: 75%
+            icon: mdi:lightbulb-on-outline
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.white_dimmer_preset_75_percent
+          - type: button
+            entity: button.white_dimmer_preset_50_percent
+            name: 50%
+            icon: mdi:lightbulb-on-outline
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.white_dimmer_preset_50_percent
+          - type: button
+            entity: button.white_dimmer_preset_25_percent
+            name: 25%
+            icon: mdi:lightbulb-outline
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.white_dimmer_preset_25_percent
+
+      # Szenen-Presets
+      - type: grid
+        title: Szenen
+        columns: 2
+        square: false
+        cards:
+          - type: button
+            entity: button.white_dimmer_preset_night_light
+            name: Night Light
+            icon: mdi:weather-night
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.white_dimmer_preset_night_light
+          - type: button
+            entity: button.white_dimmer_preset_reading
+            name: Reading
+            icon: mdi:book-open-page-variant
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.white_dimmer_preset_reading
+          - type: button
+            entity: button.white_dimmer_preset_relax
+            name: Relax
+            icon: mdi:sofa
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.white_dimmer_preset_relax
+          - type: button
+            entity: button.white_dimmer_preset_wake_up
+            name: Wake Up
+            icon: mdi:weather-sunset-up
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.white_dimmer_preset_wake_up
+
+      # System Info
+      - type: entities
+        title: System
+        entities:
+          - entity: binary_sensor.white_dimmer_online
+            name: Online
+          - entity: sensor.white_dimmer_wifi_signal
+            name: WiFi Signal
+          - entity: sensor.white_dimmer_uptime
+            name: Uptime
+          - entity: sensor.white_dimmer_ip_address
+            name: IP Address
+          - entity: button.white_dimmer_restart_controller
+            name: Neustart

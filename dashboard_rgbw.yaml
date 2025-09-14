@@ -1,0 +1,156 @@
+# HomeAssistant Dashboard für RGBW Controller (4 Kanäle)
+# Anpassung: Ersetze "rgbw-controller" mit deinem ESPHome device name
+
+title: RGBW Controller
+views:
+  - title: RGBW Strip
+    path: rgbw
+    cards:
+      # Hauptlicht RGBW (color_interlock: RGB oder White)
+      - type: light
+        entity: light.rgbw_controller_rgbw_strip
+        name: RGBW Strip
+
+      # RGB Farb-Presets
+      - type: grid
+        title: RGB Farben
+        columns: 3
+        square: false
+        cards:
+          - type: button
+            entity: button.rgbw_controller_preset_red
+            name: Red
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_red
+          - type: button
+            entity: button.rgbw_controller_preset_green
+            name: Green
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_green
+          - type: button
+            entity: button.rgbw_controller_preset_blue
+            name: Blue
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_blue
+          - type: button
+            entity: button.rgbw_controller_preset_yellow
+            name: Yellow
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_yellow
+          - type: button
+            entity: button.rgbw_controller_preset_cyan
+            name: Cyan
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_cyan
+          - type: button
+            entity: button.rgbw_controller_preset_purple
+            name: Purple
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_purple
+
+      # White-Presets (Dedicated White Channel)
+      - type: grid
+        title: Weiß-Töne
+        columns: 3
+        square: false
+        cards:
+          - type: button
+            entity: button.rgbw_controller_preset_pure_white
+            name: Pure White
+            icon: mdi:lightbulb-on
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_pure_white
+          - type: button
+            entity: button.rgbw_controller_preset_pure_white_50
+            name: White 50%
+            icon: mdi:lightbulb-on-outline
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_pure_white_50
+          - type: button
+            entity: button.rgbw_controller_preset_warm_cool_mix
+            name: Warm/Cool Mix
+            icon: mdi:lightbulb-variant
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_warm_cool_mix
+
+      # Szenen
+      - type: grid
+        title: Szenen
+        columns: 3
+        square: false
+        cards:
+          - type: button
+            entity: button.rgbw_controller_preset_relax
+            name: Relax
+            icon: mdi:sofa
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_relax
+          - type: button
+            entity: button.rgbw_controller_preset_night_light
+            name: Night Light
+            icon: mdi:weather-night
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_night_light
+          - type: button
+            entity: button.rgbw_controller_preset_candle
+            name: Candle
+            icon: mdi:candle
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgbw_controller_preset_candle
+
+      # System Info
+      - type: entities
+        title: System
+        entities:
+          - entity: binary_sensor.rgbw_controller_online
+            name: Online
+          - entity: sensor.rgbw_controller_wifi_signal
+            name: WiFi Signal
+          - entity: sensor.rgbw_controller_uptime
+            name: Uptime
+          - entity: sensor.rgbw_controller_ip_address
+            name: IP Address
+          - entity: button.rgbw_controller_restart_controller
+            name: Neustart

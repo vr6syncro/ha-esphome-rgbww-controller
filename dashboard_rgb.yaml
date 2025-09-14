@@ -1,0 +1,138 @@
+# HomeAssistant Dashboard für RGB Controller (3 Kanäle)
+# Anpassung: Ersetze "rgb-controller" mit deinem ESPHome device name
+
+title: RGB Controller
+views:
+  - title: RGB Strip
+    path: rgb
+    cards:
+      # Hauptlicht RGB (KEIN Color Temperature!)
+      - type: light
+        entity: light.rgb_controller_rgb_strip
+        name: RGB Strip
+
+      # RGB Presets (keine White-Presets)
+      - type: grid
+        title: Farb-Presets
+        columns: 3
+        square: false
+        cards:
+          - type: button
+            entity: button.rgb_controller_preset_red
+            name: Red
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgb_controller_preset_red
+          - type: button
+            entity: button.rgb_controller_preset_green
+            name: Green
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgb_controller_preset_green
+          - type: button
+            entity: button.rgb_controller_preset_blue
+            name: Blue
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgb_controller_preset_blue
+          - type: button
+            entity: button.rgb_controller_preset_yellow
+            name: Yellow
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgb_controller_preset_yellow
+          - type: button
+            entity: button.rgb_controller_preset_cyan
+            name: Cyan
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgb_controller_preset_cyan
+          - type: button
+            entity: button.rgb_controller_preset_purple
+            name: Purple
+            icon: mdi:palette
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgb_controller_preset_purple
+
+      # White-Simulationen (RGB-Mix)
+      - type: grid
+        title: Weiß-Simulationen
+        columns: 3
+        square: false
+        cards:
+          - type: button
+            entity: button.rgb_controller_preset_white_rgb
+            name: White (RGB)
+            icon: mdi:lightbulb-on
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgb_controller_preset_white_rgb
+          - type: button
+            entity: button.rgb_controller_preset_warm_white_rgb
+            name: Warm (RGB)
+            icon: mdi:lightbulb-on-outline
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgb_controller_preset_warm_white_rgb
+          - type: button
+            entity: button.rgb_controller_preset_cool_white_rgb
+            name: Cool (RGB)
+            icon: mdi:snowflake
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgb_controller_preset_cool_white_rgb
+
+      # Szenen
+      - type: grid
+        title: Szenen
+        columns: 3
+        square: false
+        cards:
+          - type: button
+            entity: button.rgb_controller_preset_candle
+            name: Candle
+            icon: mdi:candle
+            tap_action:
+              action: call-service
+              service: button.press
+              target:
+                entity_id: button.rgb_controller_preset_candle
+
+      # System Info
+      - type: entities
+        title: System
+        entities:
+          - entity: binary_sensor.rgb_controller_online
+            name: Online
+          - entity: sensor.rgb_controller_wifi_signal
+            name: WiFi Signal
+          - entity: sensor.rgb_controller_uptime
+            name: Uptime
+          - entity: sensor.rgb_controller_ip_address
+            name: IP Address
+          - entity: button.rgb_controller_restart_controller
+            name: Neustart
