@@ -1,8 +1,18 @@
-#include <ESP8266WiFi.h>
-#include <ESP8266WebServer.h>
-#include <Updater.h>
+#ifdef ESP8266
+  #include <ESP8266WiFi.h>
+  #include <ESP8266WebServer.h>
+  #include <Updater.h>
+  ESP8266WebServer server(80);
+#endif
 
-// Simple OTA migrator for ESP8266
+#ifdef ESP32
+  #include <WiFi.h>
+  #include <WebServer.h>
+  #include <Update.h>
+  WebServer server(80);
+#endif
+
+// Simple OTA migrator for ESP8266/ESP32
 // 1) Flash this binary via the old firmware's web update
 // 2) Connect to AP "ESPHome-Migrator-<CHIPID>" (password: MIGRATOR_AP_PASSWORD)
 // 3) Open http://192.168.4.1 and upload your ESPHome .bin
@@ -12,10 +22,13 @@
 #define MIGRATOR_AP_PASSWORD "esphome123"
 #endif
 
-ESP8266WebServer server(80);
-
 String chipIdStr() {
+#ifdef ESP8266
   uint32_t chipId = ESP.getChipId();
+#endif
+#ifdef ESP32
+  uint32_t chipId = (uint32_t)(ESP.getEfuseMac() >> 24);
+#endif
   char buf[9];
   snprintf(buf, sizeof(buf), "%06X", chipId);
   return String(buf);
@@ -64,8 +77,14 @@ void handleNotFound() {
 void handleUpdate() {
   HTTPUpload& upload = server.upload();
   if (upload.status == UPLOAD_FILE_START) {
-    // Begin update with unknown size
-    if (!Update.begin(UPDATE_SIZE_UNKNOWN)) {
+    // Begin update with max available size
+#ifdef ESP8266
+    size_t maxSketchSpace = (ESP.getFreeSketchSpace() - 0x1000) & 0xFFFFF000;
+#endif
+#ifdef ESP32
+    size_t maxSketchSpace = UPDATE_SIZE_UNKNOWN;
+#endif
+    if (!Update.begin(maxSketchSpace)) {
       Update.printError(Serial);
     }
   } else if (upload.status == UPLOAD_FILE_WRITE) {
@@ -91,7 +110,12 @@ void setup() {
   Serial.begin(115200);
   delay(200);
   Serial.println();
+#ifdef ESP8266
   Serial.println("=== ESPHome Migrator (ESP8266) ===");
+#endif
+#ifdef ESP32
+  Serial.println("=== ESPHome Migrator (ESP32) ===");
+#endif
   Serial.printf("Chip ID: %s\n", chipIdStr().c_str());
 
   // Start AP for local upload
