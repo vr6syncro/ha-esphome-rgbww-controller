@@ -27,8 +27,8 @@ api:
   reboot_timeout: 0s
 
 ota:
-  - platform: esphome
-    password: !secret ota_password
+  platform: esphome
+  password: !secret ota_password
 
 wifi:
   ssid: !secret wifi_ssid
@@ -79,7 +79,7 @@ light:
     warm_white_color_temperature: 2700 K
     gamma_correct: 2.8
     default_transition_length: 800ms
-    constant_brightness: false
+    constant_brightness: true
     color_interlock: true
     restore_mode: RESTORE_DEFAULT_OFF
     effects:
