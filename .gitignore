@@ -1,6 +1,8 @@
 # ESPHome specific
 .esphome/
 secrets.yaml
+
+# Build artifacts
 *.bin
 *.elf
 *.map
@@ -31,9 +33,12 @@ pip-log.txt
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+nul
 
-# Claude Code
+# Claude Code / interne Dateien
 .claude/
+CLAUDE.md
+docs/tasks.md
 
 # Logs
 *.log
@@ -43,7 +48,3 @@ Desktop.ini
 *.temp
 *.bak
 *.backup
-
-# Build artifacts (keep the OTA migrator binaries)
-!ota_migrator/ota_migrator_esp8266.bin
-!ota_migrator/ota_migrator_esp32.bin
