@@ -1,7 +1,7 @@
 # RGB Controller (3-Kanal)
 
-## Überblick
-Dieser Controller unterstützt 3-Kanal RGB LED-Strips ohne separaten White-Kanal.
+## Ueberblick
+Dieser Controller unterstuetzt 3-Kanal RGB LED-Strips ohne separaten White-Kanal.
 
 ## Pin-Konfiguration
 ```yaml
@@ -13,15 +13,16 @@ blue_pin: GPIO14
 ## Features
 - RGB Farbmischung
 - Warm/Cold White Simulation durch RGB-Mix
-- 9 vordefinierte Presets
+- Vordefinierte Presets (Farben, White-Simulationen, Szenen)
 - Effekte: Pulse, Random, Candle
+- Captive Portal, Safe Mode, Factory Reset
 - Restore nach Power Loss
 
 ## Installation
 
-1. **secrets.yaml** aus `secrets_example.yaml` erstellen:
+1. **secrets.yaml** aus der Vorlage im Root erstellen:
 ```bash
-cp secrets_example.yaml secrets.yaml
+cp ../secrets_example.yaml secrets.yaml
 ```
 
 2. Secrets anpassen:
@@ -34,5 +35,7 @@ ota_password: "..."
 
 3. In ESPHome Dashboard importieren und flashen
 
+Alternativ: [Web-Konfigurator](../configurator/) verwenden.
+
 ## Verwendung
-Ideal für RGB LED-Strips ohne White-Kanäle
+Ideal fuer RGB LED-Strips ohne White-Kanaele

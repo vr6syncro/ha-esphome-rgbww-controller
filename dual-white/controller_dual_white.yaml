@@ -1,7 +1,7 @@
 # =====================================================
 # Dual White Controller (2 Kanäle: WW, CW)
 # ESPHome RGBWW Controller - CCT Variant
-# Version: 2.0 - Working with proper color_mode control
+# Version: 2.1
 # =====================================================
 
 esphome:
@@ -9,7 +9,7 @@ esphome:
   comment: "Dual White CCT LED Controller - 2 Channel"
   project:
     name: vr6syncro.esphome-rgbww-controller
-    version: "2.0-cct"
+    version: "2.1-cct"
 
 # Restore nach Power Loss
 preferences:

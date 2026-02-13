@@ -1,7 +1,7 @@
 # RGBWW Controller (5-Kanal) - Vollausstattung
 
-## Überblick
-Die Premium-Variante mit voller 5-Kanal RGBWW Unterstützung für RGB + Warm White + Cold White.
+## Ueberblick
+Die Premium-Variante mit voller 5-Kanal RGBWW Unterstuetzung fuer RGB + Warm White + Cold White.
 
 ## Pin-Konfiguration
 ```yaml
@@ -17,15 +17,15 @@ cold_white_pin: GPIO4
 - Color Temperature Control (2700K - 6000K)
 - Constant Brightness bei CT-Wechseln
 - Color Interlock Option
-- 11 vordefinierte Presets
-- Alle ESPHome RGBWW Features
+- Vordefinierte Presets (Farben, Weisstoene, Szenen)
+- Captive Portal, Safe Mode, Factory Reset
 - Restore nach Power Loss
 
 ## Installation
 
-1. **secrets.yaml** aus `secrets_example.yaml` erstellen:
+1. **secrets.yaml** aus der Vorlage im Root erstellen:
 ```bash
-cp secrets_example.yaml secrets.yaml
+cp ../secrets_example.yaml secrets.yaml
 ```
 
 2. Secrets anpassen:
@@ -38,5 +38,7 @@ ota_password: "..."
 
 3. In ESPHome Dashboard importieren und flashen
 
+Alternativ: [Web-Konfigurator](../configurator/) verwenden.
+
 ## Verwendung
-Ideal für Premium RGBWW LED-Strips mit separaten Warm/Cold White LEDs
+Ideal fuer Premium RGBWW LED-Strips mit separaten Warm/Cold White LEDs

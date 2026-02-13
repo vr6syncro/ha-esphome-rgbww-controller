@@ -1,133 +1,123 @@
 # ESPHome RGBWW Controller
 
-[![ESPHome](https://img.shields.io/badge/ESPHome-latest-blue)](https://esphome.io)
+[![ESPHome](https://img.shields.io/badge/ESPHome-2026.1+-blue)](https://esphome.io)
 [![Home Assistant](https://img.shields.io/badge/Home%20Assistant-Compatible-brightgreen)](https://www.home-assistant.io)
 [![Platform](https://img.shields.io/badge/Platform-ESP8266%20%7C%20ESP32-orange)](https://www.espressif.com)
 
-**5 spezialisierte ESPHome-Konfigurationen** für FHEM RGBWW Controller Hardware sowie kompatible LED-Controller – von einfachem Dimmer bis zur 5-Kanal RGBWW Vollausstattung.
+**5 spezialisierte ESPHome-Konfigurationen** fuer FHEM RGBWW Controller Hardware sowie kompatible LED-Controller -- von einfachem Dimmer bis zur 5-Kanal RGBWW Vollausstattung.
 
-## 🎯 Features
+## Features
 
-### ✅ **Stabile Konfiguration**
 - **Funktionierendes Restore** nach Power Loss
 - **Optimierte Light-Component** pro Controller-Typ
-- **Vereinfachte Konfiguration** ohne komplexe Modi
+- **Captive Portal** fuer WiFi-Fallback
+- **Safe Mode & Factory Reset** Buttons
+- **Einheitliche Presets** mit konsistenten Helligkeitswerten
 - **Smooth Fading** zwischen Farben und Helligkeitsstufen
 
-### ✅ **5 spezialisierte Varianten**
-Jede Variante ist optimal für ihren spezifischen Hardware-Typ konfiguriert:
+## Web-Konfigurator
 
-1. **RGB** (3 Kanäle) - Für reine Farb-LEDs
-2. **RGBW** (4 Kanäle) - RGB + White Kanal
-3. **RGBWW** (5 Kanäle) - RGB + Warm/Cold White (Vollausstattung)
-4. **Dual White** (2 Kanäle) - CCT/Tunable White Strips
-5. **Single White** (1 Kanal) - Einfacher Dimmer
+**[Konfigurator oeffnen](configurator/)** -- Konfiguration zusammenklicken, YAML generieren, fertig.
 
-## 🎯 Quick Start
+Der Konfigurator unterstuetzt alle 5 Controller-Typen, ESP8266 und ESP32, konfigurierbare Pins, Presets und Effekte.
+
+## 5 spezialisierte Varianten
+
+| Controller | Kanaele | Features | Ideal fuer |
+|------------|---------|----------|-----------|
+| **[RGB](rgb/)** | 3 (R,G,B) | RGB-Mix, Farbpresets | RGB LED-Strips |
+| **[RGBW](rgbw/)** | 4 (R,G,B,W) | RGB + White, Color Interlock | RGBW LED-Strips |
+| **[RGBWW](rgbww/)** | 5 (R,G,B,WW,CW) | RGB + CCT, Constant Brightness | Premium RGBWW LEDs |
+| **[Dual White](dual-white/)** | 2 (WW,CW) | CCT Control, Constant Brightness | Buero/Wohnraum |
+| **[Single White](single-white/)** | 1 (W) | Dimmer, Wake Up Preset | Einfache LEDs |
+
+## Quick Start
 
 ### 1. Hardware-Typ bestimmen
-**Zähle deine LED-Kanäle:**
-- **3 Kanäle** (RGB) → [RGB Controller](rgb/)
-- **4 Kanäle** (RGBW) → [RGBW Controller](rgbw/)
-- **5 Kanäle** (RGBWW) → [RGBWW Controller](rgbww/) - Vollausstattung
-- **2 Kanäle** (WW/CW) → [Dual White Controller](dual-white/)
-- **1 Kanal** (White) → [Single White Controller](single-white/)
+**Zaehle deine LED-Kanaele:**
+- **3 Kanaele** (RGB) -> [RGB Controller](rgb/)
+- **4 Kanaele** (RGBW) -> [RGBW Controller](rgbw/)
+- **5 Kanaele** (RGBWW) -> [RGBWW Controller](rgbww/) - Vollausstattung
+- **2 Kanaele** (WW/CW) -> [Dual White Controller](dual-white/)
+- **1 Kanal** (White) -> [Single White Controller](single-white/)
 
-### 2. Installation
-1. **ESPHome Dashboard** → New Device → Controller-YAML aus entsprechendem Ordner verwenden
-2. **Secrets konfigurieren**: WiFi, API-Key, OTA-Passwort
+### 2. Konfiguration erstellen
+**Option A**: [Web-Konfigurator](configurator/) verwenden (empfohlen)
+**Option B**: Controller-YAML aus dem entsprechenden Ordner kopieren
+
+### 3. Installation
+1. **ESPHome Dashboard** -> New Device -> YAML einfuegen
+2. **Secrets konfigurieren**: `secrets.yaml` nach [Vorlage](secrets_example.yaml) erstellen
 3. **Flashen**:
-   - **Neue/leere Hardware**: USB/Serial
-   - **ESPHome bereits installiert**: Wireless/OTA  
-   - **Alte FHEM Firmware**: [**OTA Migrator verwenden**](ota_migrator/) 📡
+   - **Neue Hardware**: USB/Serial
+   - **ESPHome installiert**: Wireless/OTA
+   - **Alte FHEM Firmware**: [OTA Migrator](ota_migrator/) verwenden
 
-### 3. Dashboard einrichten
-**Home Assistant Dashboard**: Verwende die passende `dashboard_*.yaml` aus deinem Controller-Ordner
+### 4. Dashboard einrichten
+Dashboard-YAML aus dem Controller-Ordner in Home Assistant importieren.
 
-➡️ **[Detaillierte Anleitung & Troubleshooting](DETAILED_GUIDE.md)**
+## Migration von FHEM Firmware
 
-## 📋 Controller-Übersicht
+Der [OTA Migrator](ota_migrator/) ermoeglicht die drahtlose Migration von alter FHEM-Firmware zu ESPHome:
+1. Migrator-Binary ueber das alte Web-Interface flashen
+2. Mit temporaerem AP verbinden (Passwort auf Serial-Konsole)
+3. ESPHome-Firmware hochladen
 
-| Controller | Kanäle | Features | Ideal für |
-|------------|--------|----------|-----------|
-| **[RGB](rgb/)** | 3 (R,G,B) | RGB-Mix, 9 Presets | RGB LED-Strips |
-| **[RGBW](rgbw/)** | 4 (R,G,B,W) | RGB + White, 10 Presets | RGBW LED-Strips |
-| **[RGBWW](rgbww/)** | 5 (R,G,B,WW,CW) | RGB + CCT, 11 Presets | Premium RGBWW LEDs |
-| **[Dual White](dual-white/)** | 2 (WW,CW) | CCT Control, 9 Presets | Büro/Wohnraum |
-| **[Single White](single-white/)** | 1 (W) | Dimmer, 8 Presets | Einfache LEDs |
-
-➡️ **[Pin-Konfiguration, Features & Troubleshooting](DETAILED_GUIDE.md)**
-
-## 🔄 Migration von Original FHEM Firmware
-
-Für Controller mit der originalen FHEM RGBWW Firmware (Sming/rBoot) gibt es einen **OTA Migrator**:
-
-1. **[OTA Migrator](ota_migrator/)** nutzen
-   - Entsprechende Binary über altes Web-Interface flashen:
-     - ESP8266: `ota_migrator_esp8266.bin` (304KB)
-     - ESP32: `ota_migrator_esp32.bin` (750KB)
-   - Mit temporärem AP verbinden
-   - ESPHome Firmware hochladen
-   
-2. **Direkte Migration ohne Zwischenschritte**
-   - Kein serieller Anschluss nötig
-   - Erhält alle Hardware-Einstellungen
-
-➡️ **[Detaillierte OTA Migrator Anleitung](ota_migrator/README.md)** (SSID, Passwort, etc.)
-
-## 📁 Ordnerstruktur
+## Ordnerstruktur
 
 ```
 esphome-rgbww-controller/
+├── configurator/           # Web-Konfigurator (GitHub Pages)
+│   ├── index.html
+│   ├── app.js
+│   └── style.css
 ├── rgb/                    # 3-Kanal RGB Controller
 │   ├── controller_rgb.yaml
-│   ├── dashboard_rgb.yaml
-│   └── secrets_example.yaml
+│   └── dashboard_rgb.yaml
 ├── rgbw/                   # 4-Kanal RGBW Controller
 │   ├── controller_rgbw.yaml
-│   ├── dashboard_rgbw.yaml
-│   └── secrets_example.yaml
-├── rgbww/                  # 5-Kanal RGBWW Controller (Vollausstattung)
+│   └── dashboard_rgbw.yaml
+├── rgbww/                  # 5-Kanal RGBWW Controller
 │   ├── controller_rgbww.yaml
-│   ├── dashboard_rgbww.yaml
-│   └── secrets_example.yaml
-├── dual-white/             # 2-Kanal CCT/Tunable White
+│   └── dashboard_rgbww.yaml
+├── dual-white/             # 2-Kanal CCT Controller
 │   ├── controller_dual_white.yaml
-│   ├── dashboard_dual_white.yaml
-│   └── secrets_example.yaml
-└── single-white/           # 1-Kanal Dimmer
-    ├── controller_single_white.yaml
-    ├── dashboard_single_white.yaml
-    └── secrets_example.yaml
+│   └── dashboard_dual_white.yaml
+├── single-white/           # 1-Kanal Dimmer
+│   ├── controller_single_white.yaml
+│   └── dashboard_single_white.yaml
+├── ota_migrator/           # FHEM -> ESPHome Migration
+├── secrets_example.yaml    # Secrets-Vorlage
+└── DETAILED_GUIDE.md       # Ausfuehrliche Dokumentation
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Verbesserungen und Bug-Reports sind willkommen!
 
 - **Issues**: Bug-Reports, Feature-Requests
 - **Pull Requests**: Verbesserungen, neue Presets
-- **Dokumentation**: Ergänzungen, Korrekturen
+- **Dokumentation**: Ergaenzungen, Korrekturen
 
-## 📜 Lizenz
+## Lizenz
 
 MIT License - siehe [LICENSE](LICENSE)
 
-## 🙏 Credits
+## Credits
 
 - **Original Hardware**: [patrickjahns/esp_rgbww_controller](https://github.com/patrickjahns/esp_rgbww_controller)
-- **ESPHome Community**: Für die exzellente Plattform  
-- **FHEM Community**: Für die Hardware-Entwicklung
+- **ESPHome Community**: Fuer die exzellente Plattform
+- **FHEM Community**: Fuer die Hardware-Entwicklung
 
 ---
 
-**Version**: 2.0.0 | **Platform**: ESP8266/ESP32 | **Protocol**: ESPHome Native API
+**Version**: 2.1 | **Platform**: ESP8266/ESP32 | **Protocol**: ESPHome Native API
 
-## 📖 Weitere Informationen
+## Weitere Informationen
 
-Detaillierte Informationen zu jedem Controller-Typ findest du in den jeweiligen Ordnern:
-- [RGB Controller Dokumentation](rgb/README.md)
-- [RGBW Controller Dokumentation](rgbw/README.md)
-- [RGBWW Controller Dokumentation](rgbww/README.md)
-- [Dual White Controller Dokumentation](dual-white/README.md)
-- [Single White Controller Dokumentation](single-white/README.md)
+- [Detaillierter Guide & Troubleshooting](DETAILED_GUIDE.md)
+- [RGB Controller](rgb/README.md)
+- [RGBW Controller](rgbw/README.md)
+- [RGBWW Controller](rgbww/README.md)
+- [Dual White Controller](dual-white/README.md)
+- [Single White Controller](single-white/README.md)

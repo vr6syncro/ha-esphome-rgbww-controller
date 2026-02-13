@@ -1,7 +1,7 @@
 # =====================================================
 # Single White Controller (1 Kanal: Dimmer)
 # ESPHome RGBWW Controller - Dimmer Variant
-# Version: 2.0 - Working with proper color_mode control
+# Version: 2.1
 # =====================================================
 
 esphome:
@@ -9,7 +9,7 @@ esphome:
   comment: "Single White LED Dimmer Controller"
   project:
     name: vr6syncro.esphome-rgbww-controller
-    version: "2.0-dimmer"
+    version: "2.1-dimmer"
 
 # Restore nach Power Loss
 preferences:

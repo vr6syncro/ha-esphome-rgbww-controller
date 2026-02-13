@@ -1,7 +1,7 @@
 # =====================================================
 # RGBW Controller (4 Kanäle: R, G, B, W)
 # ESPHome RGBWW Controller - RGBW Variant
-# Version: 2.0 - Working with proper color_mode control
+# Version: 2.1
 # =====================================================
 
 esphome:
@@ -9,7 +9,7 @@ esphome:
   comment: "RGBW LED Controller - 4 Channel with RGB and White"
   project:
     name: vr6syncro.esphome-rgbww-controller
-    version: "2.0-rgbw"
+    version: "2.1-rgbw"
 
 preferences:
   flash_write_interval: 30s

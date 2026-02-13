@@ -1,7 +1,7 @@
 # RGBW Controller (4-Kanal)
 
-## Überblick
-Dieser Controller unterstützt 4-Kanal RGBW LED-Strips mit einem separaten White-Kanal.
+## Ueberblick
+Dieser Controller unterstuetzt 4-Kanal RGBW LED-Strips mit einem separaten White-Kanal.
 
 ## Pin-Konfiguration
 ```yaml
@@ -14,15 +14,16 @@ white_pin: GPIO5
 ## Features
 - RGB + separater White-Kanal
 - Color Interlock (entweder RGB oder White)
-- 10 vordefinierte Presets
-- Perfekte weiße Farben durch dedizierten White-Kanal
+- Vordefinierte Presets (Farben, Pure White, Szenen)
+- Perfekte weisse Farben durch dedizierten White-Kanal
+- Captive Portal, Safe Mode, Factory Reset
 - Restore nach Power Loss
 
 ## Installation
 
-1. **secrets.yaml** aus `secrets_example.yaml` erstellen:
+1. **secrets.yaml** aus der Vorlage im Root erstellen:
 ```bash
-cp secrets_example.yaml secrets.yaml
+cp ../secrets_example.yaml secrets.yaml
 ```
 
 2. Secrets anpassen:
@@ -35,5 +36,7 @@ ota_password: "..."
 
 3. In ESPHome Dashboard importieren und flashen
 
+Alternativ: [Web-Konfigurator](../configurator/) verwenden.
+
 ## Verwendung
-Ideal für RGBW LED-Strips mit einem neutralweißen Kanal
+Ideal fuer RGBW LED-Strips mit einem neutralweissen Kanal

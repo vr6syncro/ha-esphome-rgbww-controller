@@ -1,7 +1,7 @@
 # Dual White Controller (2-Kanal)
 
-## Überblick
-Spezialisiert auf CCT/Tunable White LED-Strips mit Warm White und Cold White Kanälen.
+## Ueberblick
+Spezialisiert auf CCT/Tunable White LED-Strips mit Warm White und Cold White Kanaelen.
 
 ## Pin-Konfiguration
 ```yaml
@@ -11,17 +11,17 @@ cold_white_pin: GPIO4
 
 ## Features
 - CCT/Tunable White (2700K - 6000K)
-- CWWW Light Platform für Color Temperature
-- 9 vordefinierte Presets
-- Verschiedene Weißtöne und Szenen
-- Optimiert für Wohn- und Arbeitsraumbeleuchtung
+- CWWW Light Platform fuer Color Temperature
+- Constant Brightness bei CT-Wechseln
+- Vordefinierte Presets (Weisstoene, Szenen)
+- Captive Portal, Safe Mode, Factory Reset
 - Restore nach Power Loss
 
 ## Installation
 
-1. **secrets.yaml** aus `secrets_example.yaml` erstellen:
+1. **secrets.yaml** aus der Vorlage im Root erstellen:
 ```bash
-cp secrets_example.yaml secrets.yaml
+cp ../secrets_example.yaml secrets.yaml
 ```
 
 2. Secrets anpassen:
@@ -34,5 +34,7 @@ ota_password: "..."
 
 3. In ESPHome Dashboard importieren und flashen
 
+Alternativ: [Web-Konfigurator](../configurator/) verwenden.
+
 ## Verwendung
-Ideal für CCT LED-Strips ohne RGB-Kanäle, perfekt für Büro- und Wohnraumbeleuchtung
+Ideal fuer CCT LED-Strips ohne RGB-Kanaele, perfekt fuer Buero- und Wohnraumbeleuchtung
