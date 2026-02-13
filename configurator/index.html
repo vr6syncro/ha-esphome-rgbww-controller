@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESPHome RGBWW Controller Konfigurator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>ESPHome RGBWW Controller Konfigurator</h1>
+      <p>Konfiguration zusammenklicken, YAML generieren, fertig.</p>
+    </header>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Step 1: Controller-Typ -->
+    <div class="step active" id="step-1">
+      <h2>1. Controller-Typ</h2>
+      <p class="step-desc">Welche LED-Konfiguration soll verwendet werden?</p>
+      <div class="card-grid" id="typeCards">
+        <div class="card-option" data-value="rgb">
+          <div class="card-title">RGB</div>
+          <div class="card-sub">3 Kanaele (R, G, B)</div>
+        </div>
+        <div class="card-option" data-value="rgbw">
+          <div class="card-title">RGBW</div>
+          <div class="card-sub">4 Kanaele (R, G, B, W)</div>
+        </div>
+        <div class="card-option" data-value="rgbww">
+          <div class="card-title">RGBWW</div>
+          <div class="card-sub">5 Kanaele (R, G, B, WW, CW)</div>
+        </div>
+        <div class="card-option" data-value="dual-white">
+          <div class="card-title">Dual White</div>
+          <div class="card-sub">2 Kanaele (WW, CW)</div>
+        </div>
+        <div class="card-option" data-value="single-white">
+          <div class="card-title">Single White</div>
+          <div class="card-sub">1 Kanal (Dimmer)</div>
+        </div>
+      </div>
+      <div class="step-nav">
+        <div></div>
+        <button class="btn btn-primary" onclick="nextStep()" id="btn-next-1" disabled>Weiter</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Plattform -->
+    <div class="step" id="step-2">
+      <h2>2. Plattform</h2>
+      <p class="step-desc">Welcher Mikrocontroller wird verwendet?</p>
+      <div class="card-grid" id="platformCards">
+        <div class="card-option" data-value="esp8266">
+          <div class="card-title">ESP8266</div>
+          <div class="card-sub">FHEM-kompatibel, esp12e</div>
+        </div>
+        <div class="card-option" data-value="esp32">
+          <div class="card-title">ESP32</div>
+          <div class="card-sub">esp32dev, mehr RAM</div>
+          <div class="card-badge">Alpha / Testing</div>
+        </div>
+      </div>
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="prevStep()">Zurueck</button>
+        <button class="btn btn-primary" onclick="nextStep()" id="btn-next-2" disabled>Weiter</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Geraet -->
+    <div class="step" id="step-3">
+      <h2>3. Geraet konfigurieren</h2>
+      <p class="step-desc">Name, Pin-Belegung und PWM-Frequenz.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="deviceName">Device-Name</label>
+          <input type="text" id="deviceName" value="led-controller" placeholder="z.B. wohnzimmer-licht">
+          <div class="hint">Nur Kleinbuchstaben, Zahlen und Bindestriche</div>
+        </div>
+        <div class="form-group">
+          <label for="pwmFreq">PWM-Frequenz (Hz)</label>
+          <input type="number" id="pwmFreq" value="1200" min="100" max="40000">
+        </div>
+      </div>
+
+      <div class="section-title">Pin-Belegung</div>
+      <div class="pin-grid" id="pinGrid"></div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="prevStep()">Zurueck</button>
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Netzwerk & Sicherheit -->
+    <div class="step" id="step-4">
+      <h2>4. Netzwerk & Sicherheit</h2>
+      <p class="step-desc">WiFi, API-Verschluesselung und OTA-Passwort.</p>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="useSecrets" checked>
+          <code>!secret</code> Referenzen verwenden (empfohlen)
+        </label>
+      </div>
+
+      <div id="secretsFields">
+        <div class="hint" style="margin-bottom:1rem">Die Werte werden in einer separaten <code>secrets.yaml</code> gespeichert.</div>
+      </div>
+
+      <div id="directFields" style="display:none">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="wifiSsid">WiFi SSID</label>
+            <input type="text" id="wifiSsid" placeholder="MeinWLAN">
+          </div>
+          <div class="form-group">
+            <label for="wifiPass">WiFi Passwort</label>
+            <input type="password" id="wifiPass" placeholder="Passwort">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="apiKey">API Encryption Key</label>
+            <input type="text" id="apiKey" placeholder="Base64-Key">
+            <div class="hint">32 Byte Base64. <a href="#" onclick="generateApiKey(); return false;">Zufaellig generieren</a></div>
+          </div>
+          <div class="form-group">
+            <label for="otaPass">OTA Passwort</label>
+            <input type="password" id="otaPass" placeholder="OTA-Passwort">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">Optionen</div>
+      <div class="toggle-group">
+        <div class="toggle-label">
+          Captive Portal
+          <span class="toggle-hint">WiFi-Fallback mit Konfigurationsportal</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="captivePortal" checked>
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="toggle-group">
+        <div class="toggle-label">
+          Web Server
+          <span class="toggle-hint">Integrierter Webserver fuer Status und Steuerung</span>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" id="webServer">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+      <div class="warning" id="webServerWarning" style="display:none">
+        ESP8266 hat begrenzten RAM. Der Web Server kann zu Instabilitaet fuehren.
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="prevStep()">Zurueck</button>
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Light-Einstellungen -->
+    <div class="step" id="step-5">
+      <h2>5. Light-Einstellungen</h2>
+      <p class="step-desc">Gamma, Transition und spezifische Optionen.</p>
+
+      <div class="form-group">
+        <label>Gamma-Korrektur</label>
+        <div class="slider-group">
+          <input type="range" id="gamma" min="1.0" max="3.0" step="0.1" value="2.8">
+          <span class="slider-value" id="gammaValue">2.8</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="transition">Standard-Transition (ms)</label>
+        <input type="number" id="transition" value="800" min="0" max="10000" step="100">
+      </div>
+
+      <div class="form-group">
+        <label for="restoreMode">Restore Mode</label>
+        <select id="restoreMode">
+          <option value="RESTORE_DEFAULT_OFF" selected>Restore Default OFF</option>
+          <option value="RESTORE_DEFAULT_ON">Restore Default ON</option>
+          <option value="ALWAYS_OFF">Always OFF</option>
+          <option value="ALWAYS_ON">Always ON</option>
+        </select>
+      </div>
+
+      <div id="lightOptionsContainer"></div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="prevStep()">Zurueck</button>
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+
+    <!-- Step 6: Presets -->
+    <div class="step" id="step-6">
+      <h2>6. Presets</h2>
+      <p class="step-desc">Welche Presets sollen verfuegbar sein?</p>
+      <div class="preset-grid" id="presetGrid"></div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="prevStep()">Zurueck</button>
+        <button class="btn btn-primary" onclick="nextStep()">Weiter</button>
+      </div>
+    </div>
+
+    <!-- Step 7: Effects -->
+    <div class="step" id="step-7">
+      <h2>7. Effekte</h2>
+      <p class="step-desc">Licht-Effekte aktivieren oder deaktivieren.</p>
+      <div class="preset-grid" id="effectGrid"></div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="prevStep()">Zurueck</button>
+        <button class="btn btn-primary" onclick="generate()">YAML generieren</button>
+      </div>
+    </div>
+
+    <!-- Output -->
+    <div class="step" id="step-output">
+      <h2>Generierte Konfiguration</h2>
+
+      <div class="output-section">
+        <div class="output-header">
+          <h3>Controller YAML</h3>
+          <div class="output-actions">
+            <button class="btn-sm" onclick="copyText('controllerYaml', this)">Kopieren</button>
+            <button class="btn-sm" onclick="downloadText('controllerYaml', 'controller')">Download</button>
+          </div>
+        </div>
+        <pre id="controllerYaml"></pre>
+      </div>
+
+      <div class="output-section">
+        <div class="output-header">
+          <h3>Dashboard YAML</h3>
+          <div class="output-actions">
+            <button class="btn-sm" onclick="copyText('dashboardYaml', this)">Kopieren</button>
+            <button class="btn-sm" onclick="downloadText('dashboardYaml', 'dashboard')">Download</button>
+          </div>
+        </div>
+        <pre id="dashboardYaml"></pre>
+      </div>
+
+      <div class="output-section">
+        <div class="output-header">
+          <h3>secrets.yaml Template</h3>
+          <div class="output-actions">
+            <button class="btn-sm" onclick="copyText('secretsYaml', this)">Kopieren</button>
+          </div>
+        </div>
+        <pre id="secretsYaml"></pre>
+      </div>
+
+      <div class="step-nav">
+        <button class="btn btn-secondary" onclick="backToEdit()">Zurueck zum Bearbeiten</button>
+        <button class="btn btn-primary" onclick="resetAll()">Neue Konfiguration</button>
+      </div>
+    </div>
+
+    <footer>
+      <a href="https://github.com/vr6syncro/esphome-rgbww-controller" target="_blank">ESPHome RGBWW Controller</a> &middot; v2.1
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
