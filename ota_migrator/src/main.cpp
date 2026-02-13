@@ -14,23 +14,32 @@
 
 // Simple OTA migrator for ESP8266/ESP32
 // 1) Flash this binary via the old firmware's web update
-// 2) Connect to AP "ESPHome-Migrator-<CHIPID>" (password: MIGRATOR_AP_PASSWORD)
+// 2) Connect to AP "ESPHome-Migrator-<CHIPID>" (password shown on Serial)
 // 3) Open http://192.168.4.1 and upload your ESPHome .bin
 // 4) Device flashes and reboots into ESPHome
 
-#ifndef MIGRATOR_AP_PASSWORD
-#define MIGRATOR_AP_PASSWORD "esphome123"
-#endif
+#define MIGRATOR_TIMEOUT_MS (10UL * 60UL * 1000UL)
+unsigned long startTime = 0;
 
-String chipIdStr() {
+uint32_t getChipId() {
 #ifdef ESP8266
-  uint32_t chipId = ESP.getChipId();
+  return ESP.getChipId();
 #endif
 #ifdef ESP32
-  uint32_t chipId = (uint32_t)(ESP.getEfuseMac() >> 24);
+  return (uint32_t)(ESP.getEfuseMac() >> 24);
 #endif
+}
+
+String chipIdStr() {
   char buf[9];
-  snprintf(buf, sizeof(buf), "%06X", chipId);
+  snprintf(buf, sizeof(buf), "%06X", getChipId());
+  return String(buf);
+}
+
+String generatePassword() {
+  uint32_t id = getChipId();
+  char buf[16];
+  snprintf(buf, sizeof(buf), "mig-%06X", id ^ 0xA5A5A5);
   return String(buf);
 }
 
@@ -120,11 +129,15 @@ void setup() {
 
   // Start AP for local upload
   String ssid = String("ESPHome-Migrator-") + chipIdStr();
+  String password = generatePassword();
   WiFi.mode(WIFI_AP);
-  WiFi.softAP(ssid.c_str(), MIGRATOR_AP_PASSWORD);
+  WiFi.softAP(ssid.c_str(), password.c_str());
   IPAddress ip = WiFi.softAPIP();
-  Serial.printf("AP SSID: %s  PASS: %s\n", ssid.c_str(), MIGRATOR_AP_PASSWORD);
+  Serial.printf("AP SSID: %s\n", ssid.c_str());
+  Serial.printf("AP PASS: %s\n", password.c_str());
   Serial.printf("Open http://%s in your browser\n", ip.toString().c_str());
+  Serial.printf("Auto-shutdown in 10 minutes.\n");
+  startTime = millis();
 
   server.on("/", HTTP_GET, handleRoot);
   server.on("/update", HTTP_POST, [](){}, handleUpdate);
@@ -134,5 +147,10 @@ void setup() {
 
 void loop() {
   server.handleClient();
+  if (millis() - startTime > MIGRATOR_TIMEOUT_MS) {
+    Serial.println("Timeout reached (10 min). Restarting...");
+    delay(200);
+    ESP.restart();
+  }
 }
 
