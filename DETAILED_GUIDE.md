@@ -92,7 +92,7 @@ white_pin: GPIO5
 
 ## ESP32-Unterstuetzung (Alpha)
 
-Der [Web-Konfigurator](configurator/) unterstuetzt ESP32 als Plattform:
+Der [Web-Konfigurator](https://vr6syncro.github.io/ha-esphome-rgbww-controller/configurator/) unterstuetzt ESP32 als Plattform:
 - `ledc`-Outputs statt `esp8266_pwm`
 - Standard-Pins: GPIO16 (R), GPIO17 (G), GPIO18 (B), GPIO19 (WW), GPIO21 (CW)
 - `esp32: board: esp32dev` mit Arduino Framework
@@ -113,7 +113,7 @@ warm_white_pin: GPIO5   # Warmweiss
 cold_white_pin: GPIO4   # Kaltweiss
 ```
 
-**Fuer andere Controller-Hardware**: Pin-Belegung in der Controller-YAML anpassen oder den [Web-Konfigurator](configurator/) verwenden.
+**Fuer andere Controller-Hardware**: Pin-Belegung in der Controller-YAML anpassen oder den [Web-Konfigurator](https://vr6syncro.github.io/ha-esphome-rgbww-controller/configurator/) verwenden.
 
 ### LED-Verhalten optimieren
 ```yaml
@@ -175,7 +175,7 @@ Button in Home Assistant: Setzt den Controller auf Werkseinstellungen zurueck. A
 2. `secrets.yaml` beibehalten (keine Aenderungen)
 3. OTA-Update auf den Controller flashen
 
-Alternativ: [Web-Konfigurator](configurator/) verwenden und neue YAML generieren.
+Alternativ: [Web-Konfigurator](https://vr6syncro.github.io/ha-esphome-rgbww-controller/configurator/) verwenden und neue YAML generieren.
 
 ## Technische Details
 
@@ -243,4 +243,4 @@ Haelt die Gesamthelligkeit konstant beim Wechsel der Farbtemperatur. Ohne dieses
 3. In Home Assistant Dashboard einfuegen (Manuelle Karte)
 
 ### Automatisch generiertes Dashboard
-Der [Web-Konfigurator](configurator/) generiert eine passende Dashboard-YAML mit korrekten Entity-Namen basierend auf dem eingegebenen Device-Namen.
+Der [Web-Konfigurator](https://vr6syncro.github.io/ha-esphome-rgbww-controller/configurator/) generiert eine passende Dashboard-YAML mit korrekten Entity-Namen basierend auf dem eingegebenen Device-Namen.

@@ -17,7 +17,7 @@
 
 ## Web-Konfigurator
 
-**[Konfigurator oeffnen](configurator/)** -- Konfiguration zusammenklicken, YAML generieren, fertig.
+**[Konfigurator oeffnen](https://vr6syncro.github.io/ha-esphome-rgbww-controller/configurator/)** -- Konfiguration zusammenklicken, YAML generieren, fertig.
 
 Der Konfigurator unterstuetzt alle 5 Controller-Typen, ESP8266 und ESP32, konfigurierbare Pins, Presets und Effekte.
 
@@ -42,7 +42,7 @@ Der Konfigurator unterstuetzt alle 5 Controller-Typen, ESP8266 und ESP32, konfig
 - **1 Kanal** (White) -> [Single White Controller](single-white/)
 
 ### 2. Konfiguration erstellen
-**Option A**: [Web-Konfigurator](configurator/) verwenden (empfohlen)
+**Option A**: [Web-Konfigurator](https://vr6syncro.github.io/ha-esphome-rgbww-controller/configurator/) verwenden (empfohlen)
 **Option B**: Controller-YAML aus dem entsprechenden Ordner kopieren
 
 ### 3. Installation

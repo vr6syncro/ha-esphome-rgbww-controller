@@ -36,7 +36,7 @@ ota_password: "..."
 
 3. In ESPHome Dashboard importieren und flashen
 
-Alternativ: [Web-Konfigurator](../configurator/) verwenden.
+Alternativ: [Web-Konfigurator](https://vr6syncro.github.io/ha-esphome-rgbww-controller/configurator/) verwenden.
 
 ## Verwendung
 Ideal fuer RGBW LED-Strips mit einem neutralweissen Kanal
