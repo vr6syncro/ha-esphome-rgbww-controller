@@ -104,7 +104,7 @@ button:
   - platform: template
     id: preset_red
     name: "Preset: Red"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbww_light
@@ -117,7 +117,7 @@ button:
   - platform: template
     id: preset_green
     name: "Preset: Green"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbww_light
@@ -130,7 +130,7 @@ button:
   - platform: template
     id: preset_blue
     name: "Preset: Blue"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbww_light
@@ -143,7 +143,7 @@ button:
   - platform: template
     id: preset_yellow
     name: "Preset: Yellow"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbww_light
@@ -156,7 +156,7 @@ button:
   - platform: template
     id: preset_cyan
     name: "Preset: Cyan"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbww_light
@@ -169,7 +169,7 @@ button:
   - platform: template
     id: preset_purple
     name: "Preset: Purple"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbww_light
@@ -183,7 +183,7 @@ button:
   - platform: template
     id: preset_warm_white_2700k
     name: "Preset: Warm White 2700K"
-    icon: mdi:lightbulb-on
+    icon: mdi:white-balance-sunny
     on_press:
       - light.control:
           id: rgbww_light
@@ -222,8 +222,8 @@ button:
       - light.control:
           id: rgbww_light
           color_mode: COLD_WARM_WHITE
-          color_temperature: 3200 K
-          brightness: !lambda return id(rgbww_light).current_values.get_brightness();
+          color_temperature: 4000 K
+          brightness: 85%
 
   - platform: template
     id: preset_office_light
@@ -245,7 +245,8 @@ button:
           id: rgbww_light
           color_mode: COLD_WARM_WHITE
           color_temperature: 3000 K
-          brightness: !lambda return id(rgbww_light).current_values.get_brightness();
+          brightness: 30%
+          transition_length: 3s
 
   - platform: template
     id: preset_night_light
@@ -256,7 +257,7 @@ button:
           id: rgbww_light
           color_mode: COLD_WARM_WHITE
           color_temperature: 2700 K
-          brightness: !lambda return id(rgbww_light).current_values.get_brightness();
+          brightness: 5%
 
   - platform: template
     id: preset_candle

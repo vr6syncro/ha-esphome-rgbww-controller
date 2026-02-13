@@ -90,7 +90,7 @@ button:
   - platform: template
     id: preset_warm_2700k
     name: "Preset: Warm 2700K"
-    icon: mdi:lightbulb-on
+    icon: mdi:white-balance-sunny
     on_press:
       - light.control:
           id: cct_light
@@ -101,7 +101,7 @@ button:
   - platform: template
     id: preset_warm_3000k
     name: "Preset: Warm 3000K"
-    icon: mdi:lightbulb-on-outline
+    icon: mdi:white-balance-sunny
     on_press:
       - light.control:
           id: cct_light
@@ -173,7 +173,7 @@ button:
       - light.control:
           id: cct_light
           color_mode: COLD_WARM_WHITE
-          color_temperature: 3200 K
+          color_temperature: 4000 K
           brightness: 85%
 
   - platform: template
@@ -197,7 +197,7 @@ button:
           id: cct_light
           color_mode: COLD_WARM_WHITE
           color_temperature: 2700 K
-          brightness: 8%
+          brightness: 5%
 
   - platform: safe_mode
     name: "Safe Mode"

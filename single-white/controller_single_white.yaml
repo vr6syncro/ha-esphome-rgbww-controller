@@ -123,7 +123,7 @@ button:
     on_press:
       - light.control:
           id: white_dimmer
-          brightness: 10%
+          brightness: 5%
 
   - platform: template
     id: preset_reading

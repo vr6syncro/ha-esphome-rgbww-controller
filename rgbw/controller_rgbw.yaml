@@ -96,7 +96,7 @@ button:
   - platform: template
     id: preset_red
     name: "Preset: Red"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbw_light
@@ -109,7 +109,7 @@ button:
   - platform: template
     id: preset_green
     name: "Preset: Green"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbw_light
@@ -122,7 +122,7 @@ button:
   - platform: template
     id: preset_blue
     name: "Preset: Blue"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbw_light
@@ -135,7 +135,7 @@ button:
   - platform: template
     id: preset_yellow
     name: "Preset: Yellow"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbw_light
@@ -148,7 +148,7 @@ button:
   - platform: template
     id: preset_cyan
     name: "Preset: Cyan"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbw_light
@@ -161,7 +161,7 @@ button:
   - platform: template
     id: preset_purple
     name: "Preset: Purple"
-    icon: mdi:led-strip-variant
+    icon: mdi:palette
     on_press:
       - light.control:
           id: rgbw_light
@@ -216,11 +216,9 @@ button:
     on_press:
       - light.control:
           id: rgbw_light
-          brightness: !lambda return id(rgbw_light).current_values.get_brightness();
-          red: 100%
-          green: 60%
-          blue: 20%
-          white: 20%
+          color_mode: WHITE
+          white: 100%
+          brightness: 30%
           transition_length: 3s
 
   - platform: template
@@ -232,7 +230,7 @@ button:
           id: rgbw_light
           color_mode: WHITE
           white: 100%
-          brightness: 8%
+          brightness: 5%
 
   - platform: template
     id: preset_candle
