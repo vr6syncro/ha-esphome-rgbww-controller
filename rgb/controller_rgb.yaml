@@ -35,6 +35,8 @@ wifi:
   password: !secret wifi_password
   power_save_mode: none
 
+captive_portal:
+
 status_led:
   pin: GPIO2
 
@@ -209,6 +211,12 @@ button:
           blue: 10%
 
   # --- System ---
+  - platform: safe_mode
+    name: "Safe Mode"
+
+  - platform: factory_reset
+    name: "Factory Reset"
+
   - platform: restart
     id: restart_controller
     name: "Restart Controller"

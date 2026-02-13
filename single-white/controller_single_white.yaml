@@ -39,6 +39,8 @@ wifi:
   password: !secret wifi_password
   power_save_mode: none
 
+captive_portal:
+
 # Status LED
 status_led:
   pin: GPIO2
@@ -151,6 +153,12 @@ button:
           id: white_dimmer
           brightness: 100%
           transition_length: 30s
+
+  - platform: safe_mode
+    name: "Safe Mode"
+
+  - platform: factory_reset
+    name: "Factory Reset"
 
   - platform: restart
     name: "Restart Controller"
